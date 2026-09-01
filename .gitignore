@@ -1,0 +1,46 @@
+# Git config (keep ignore rules local)
+.gitignore
+
+# Assignment / local documents
+assignment.docx
+.~lock.*
+*.docx
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Test & coverage
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors & IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.cursor/
