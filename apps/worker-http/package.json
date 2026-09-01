@@ -1,0 +1,19 @@
+{
+  "name": "@llm-query/worker-http",
+  "version": "0.0.1",
+  "private": true,
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "test": "jest --config ../../jest.config.cjs apps/worker-http"
+  },
+  "dependencies": {
+    "@llm-query/adapters-gemini": "0.0.1",
+    "@llm-query/orchestrator": "0.0.1",
+    "@llm-query/proxy": "0.0.1",
+    "@llm-query/queue": "0.0.1",
+    "@llm-query/types": "0.0.1",
+    "@llm-query/worker-runtime": "0.0.1"
+  }
+}

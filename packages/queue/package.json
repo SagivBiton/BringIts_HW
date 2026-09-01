@@ -1,0 +1,18 @@
+{
+  "name": "@llm-query/queue",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "jest --config ../../jest.config.cjs packages/queue"
+  },
+  "dependencies": {
+    "@llm-query/types": "0.0.1",
+    "bullmq": "^5.34.8",
+    "ioredis": "^5.4.2"
+  },
+  "devDependencies": {
+    "ioredis-mock": "^8.9.0"
+  }
+}

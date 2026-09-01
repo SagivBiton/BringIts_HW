@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@llm-query/types": ["packages/types/src/index.ts"],
+      "@llm-query/errors": ["packages/errors/src/index.ts"],
+      "@llm-query/proxy": ["packages/proxy/src/index.ts"],
+      "@llm-query/queue": ["packages/queue/src/index.ts"],
+      "@llm-query/orchestrator": ["packages/orchestrator/src/index.ts"],
+      "@llm-query/adapters-gemini": ["packages/adapters-gemini/src/index.ts"],
+      "@llm-query/adapters-chatgpt": ["packages/adapters-chatgpt/src/index.ts"],
+      "@llm-query/worker-runtime": ["packages/worker-runtime/src/index.ts"]
+    },
+    "noEmit": true
+  },
+  "include": ["packages/**/*", "apps/**/*"]
+}

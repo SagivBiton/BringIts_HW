@@ -1,0 +1,18 @@
+{
+  "name": "@llm-query/proxy",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "jest --config ../../jest.config.cjs packages/proxy"
+  },
+  "dependencies": {
+    "@llm-query/types": "0.0.1",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10",
+    "pg-mem": "^3.0.5"
+  }
+}

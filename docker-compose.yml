@@ -1,0 +1,86 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: llm
+      POSTGRES_PASSWORD: llm
+      POSTGRES_DB: llm_query
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./packages/proxy/migrations/001_proxies.sql:/docker-entrypoint-initdb.d/001_proxies.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U llm -d llm_query"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+    ports:
+      - "3000:3000"
+    environment:
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgres://llm:llm@postgres:5432/llm_query
+      PORT: "3000"
+      PG_CONNECT_ATTEMPTS: "30"
+      PG_CONNECT_DELAY_MS: "1000"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker-http:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: worker-http
+    environment:
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgres://llm:llm@postgres:5432/llm_query
+      PROXY_URL: ${PROXY_URL:-direct}
+      PG_CONNECT_ATTEMPTS: "30"
+      PG_CONNECT_DELAY_MS: "1000"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker-browser:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: worker-browser
+    environment:
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgres://llm:llm@postgres:5432/llm_query
+      PROXY_URL: ${PROXY_URL:-direct}
+      PG_CONNECT_ATTEMPTS: "30"
+      PG_CONNECT_DELAY_MS: "1000"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  pgdata:

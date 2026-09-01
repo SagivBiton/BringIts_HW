@@ -1,0 +1,15 @@
+{
+  "name": "@llm-query/adapters-gemini",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "jest --config ../../jest.config.cjs packages/adapters-gemini"
+  },
+  "dependencies": {
+    "@llm-query/types": "0.0.1",
+    "@llm-query/errors": "0.0.1",
+    "undici": "^6.21.0"
+  }
+}
